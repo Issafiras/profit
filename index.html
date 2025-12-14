@@ -89,6 +89,35 @@
             align-items: center;
             z-index: 1000;
         }
+
+        /* Sortable table headers */
+        .sortable {
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: background-color 0.2s ease;
+        }
+        .sortable:hover {
+            background-color: #f9fafb;
+        }
+        .sortable.sort-asc::after,
+        .sortable.sort-desc::after {
+            content: '';
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+        }
+        .sortable.sort-asc::after {
+            border-bottom: 6px solid #374151;
+        }
+        .sortable.sort-desc::after {
+            border-top: 6px solid #374151;
+        }
         .spinner {
             width: 50px;
             height: 50px;
@@ -538,10 +567,11 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varekode</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varenavn</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lagerantal</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fortjeneste</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varekode">Varekode</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varenavn">Varenavn</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="lagerantal">Lagerantal</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="udpris">Udsalgspris</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="reelFortjeneste">Fortjeneste</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Handlinger</th>
                             </tr>
                         </thead>
@@ -570,10 +600,11 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varekode</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varenavn</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lagerantal</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fortjeneste</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varekode">Varekode</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varenavn">Varenavn</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="lagerantal">Lagerantal</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="udpris">Udsalgspris</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="reelFortjeneste">Fortjeneste</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Favorit</th>
                             </tr>
                         </thead>
@@ -603,10 +634,11 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varekode</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varenavn</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lagerantal</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fortjeneste</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varekode">Varekode</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varenavn">Varenavn</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="lagerantal">Lagerantal</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="udpris">Udsalgspris</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="reelFortjeneste">Fortjeneste</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Favorit</th>
                             </tr>
                         </thead>
@@ -636,10 +668,11 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varekode</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Varenavn</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lagerantal</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fortjeneste</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varekode">Varekode</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varenavn">Varenavn</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="lagerantal">Lagerantal</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="udpris">Udsalgspris</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="reelFortjeneste">Fortjeneste</th>
                                 <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Favorit</th>
                             </tr>
                         </thead>
@@ -751,6 +784,14 @@
 
         // Favorites data
         let favorites = new Set();
+
+        // Sorting state
+        let sortStates = {
+            cashCows: { column: 'reelFortjeneste', direction: 'desc' },
+            lagerGuld: { column: 'lagerantal', direction: 'desc' },
+            tabs: { column: 'reelFortjeneste', direction: 'asc' },
+            favorites: { column: 'reelFortjeneste', direction: 'desc' }
+        };
 
         // DOM elements
         const uploadZone = document.getElementById('uploadZone');
@@ -890,6 +931,16 @@
         exitCompareBtn.addEventListener('click', exitComparisonMode);
         file1Input.addEventListener('change', (e) => handleComparisonFile(e.target.files[0], 1));
         file2Input.addEventListener('change', (e) => handleComparisonFile(e.target.files[0], 2));
+
+        // Sorting functionality
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('sortable')) {
+                const tableType = getTableTypeFromElement(e.target);
+                if (tableType) {
+                    sortTable(tableType, e.target.dataset.column);
+                }
+            }
+        });
 
         // Drag and drop for comparison files
         file1DropZone.addEventListener('dragover', (e) => {
@@ -1192,6 +1243,12 @@
             // Update favorites section and navigation
             updateFavoritesSection();
             updateNavigationVisibility();
+
+            // Initialize sort indicators
+            updateSortIndicators('cashCows');
+            updateSortIndicators('lagerGuld');
+            updateSortIndicators('tabs');
+            updateSortIndicators('favorites');
 
             // Show print button
             printBtn.classList.remove('hidden');
@@ -1624,6 +1681,23 @@
             // Get favorite products from current data
             const favoriteProducts = salesData.filter(item => favorites.has(item.varenavn));
 
+            // Create table header if not exists
+            if (!favoritesTable.querySelector('thead')) {
+                const thead = document.createElement('thead');
+                thead.className = 'bg-gray-50';
+                thead.innerHTML = `
+                    <tr>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varekode">Varekode</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="varenavn">Varenavn</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="lagerantal">Lagerantal</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="udpris">Udsalgspris</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider sortable" data-column="reelFortjeneste">Fortjeneste</th>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Handlinger</th>
+                    </tr>
+                `;
+                favoritesTable.parentElement.insertBefore(thead, favoritesTable);
+            }
+
             favoritesTable.innerHTML = '';
 
             if (favoriteProducts.length === 0) {
@@ -1638,6 +1712,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-700">${item.varekode || '-'}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.varenavn}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.lagerantal}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${formatCurrency(item.udpris)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm ${profitClass}">${formatCurrency(item.reelFortjeneste)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <button onclick="toggleFavorite('${item.varenavn.replace(/'/g, "\\'")}')" class="text-red-500 hover:text-red-700 transition-colors" title="Fjern fra favoritter">
@@ -1656,6 +1731,100 @@
             populateCashCows();
             populateLagerGuld();
             populateTabsListen();
+        }
+
+        // Sorting functions
+        function getTableTypeFromElement(element) {
+            const table = element.closest('table');
+            if (!table) return null;
+
+            const tableId = table.id;
+            if (tableId === 'cashCowsTable') return 'cashCows';
+            if (tableId === 'lagerGuldTable') return 'lagerGuld';
+            if (tableId === 'tabsTable') return 'tabs';
+            if (tableId === 'favoritesTable') return 'favorites';
+            return null;
+        }
+
+        function sortTable(tableType, column) {
+            const currentSort = sortStates[tableType];
+
+            // Toggle direction if same column, otherwise sort ascending
+            if (currentSort.column === column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                currentSort.direction = 'asc';
+            }
+
+            // Update visual indicators
+            updateSortIndicators(tableType);
+
+            // Get data and sort it
+            let data;
+            switch(tableType) {
+                case 'cashCows':
+                    data = [...cashCowsData];
+                    break;
+                case 'lagerGuld':
+                    data = [...lagerGuldData];
+                    break;
+                case 'tabs':
+                    data = [...tabsData];
+                    break;
+                case 'favorites':
+                    data = salesData.filter(item => favorites.has(item.varenavn));
+                    break;
+                default:
+                    return;
+            }
+
+            // Sort the data
+            data.sort((a, b) => {
+                let aVal = a[column];
+                let bVal = b[column];
+
+                // Handle string comparison
+                if (typeof aVal === 'string' && typeof bVal === 'string') {
+                    aVal = aVal.toLowerCase();
+                    bVal = bVal.toLowerCase();
+                }
+
+                // Handle numeric comparison
+                if (typeof aVal === 'number' && typeof bVal === 'number') {
+                    return currentSort.direction === 'asc' ? aVal - bVal : bVal - aVal;
+                }
+
+                // Handle mixed types or null values
+                if (aVal == null && bVal == null) return 0;
+                if (aVal == null) return currentSort.direction === 'asc' ? -1 : 1;
+                if (bVal == null) return currentSort.direction === 'asc' ? 1 : -1;
+
+                // String comparison
+                if (aVal < bVal) return currentSort.direction === 'asc' ? -1 : 1;
+                if (aVal > bVal) return currentSort.direction === 'asc' ? 1 : -1;
+                return 0;
+            });
+
+            // Re-render the table
+            renderTable(tableType, data);
+        }
+
+        function updateSortIndicators(tableType) {
+            const table = document.getElementById(`${tableType}Table`);
+            if (!table) return;
+
+            // Clear all sort indicators
+            table.querySelectorAll('.sortable').forEach(th => {
+                th.classList.remove('sort-asc', 'sort-desc');
+            });
+
+            // Add sort indicator to current column
+            const currentSort = sortStates[tableType];
+            const header = table.querySelector(`[data-column="${currentSort.column}"]`);
+            if (header) {
+                header.classList.add(`sort-${currentSort.direction}`);
+            }
         }
 
         // Format currency
@@ -1736,6 +1905,7 @@
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-mono text-gray-700">${item.varekode || '-'}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${item.varenavn}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${item.lagerantal}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-700">${formatCurrency(item.udpris)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm ${profitClass}">${formatCurrency(item.reelFortjeneste)}</td>
                     <td class="px-6 py-4 whitespace-nowrap text-sm">
                         <button onclick="toggleFavorite('${item.varenavn.replace(/'/g, "\\'")}')" class="text-yellow-500 hover:text-yellow-700 transition-colors" title="${isFavorite ? 'Fjern fra favoritter' : 'Tilføj til favoritter'}">
@@ -1812,13 +1982,14 @@
             }
 
             // Create CSV content
-            const headers = ['Varekode', 'Varenavn', 'Lagerantal', 'Fortjeneste'];
+            const headers = ['Varekode', 'Varenavn', 'Lagerantal', 'Udsalgspris', 'Fortjeneste'];
             const csvContent = [
                 headers.join(','),
                 ...data.map(item => [
                     `"${(item.varekode || '').replace(/"/g, '""')}"`, // Escape quotes
                     `"${item.varenavn.replace(/"/g, '""')}"`, // Escape quotes
                     item.lagerantal,
+                    item.udpris.toFixed(2).replace('.', ','), // Danish number format
                     item.reelFortjeneste.toFixed(2).replace('.', ',') // Danish number format
                 ].join(','))
             ].join('\n');
