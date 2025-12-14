@@ -418,9 +418,6 @@
                     <a href="#visualizations" class="nav-link whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" data-section="visualizations">
                         📈 Visualiseringer
                     </a>
-                    <a href="#filters" class="nav-link whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors" data-section="filters">
-                        🔍 Filtre
-                    </a>
                     <a href="#favorites" class="nav-link whitespace-nowrap px-3 py-2 text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-colors hidden" data-section="favorites">
                         ⭐ Favoritter
                     </a>
@@ -450,7 +447,7 @@
                 </div>
             </div>
             <h3 class="text-2xl font-bold text-gray-900 mb-3">Start Din Profit Jagt!</h3>
-            <p class="text-gray-600 mb-6 text-lg">Upload din tele.csv og få øjeblikkelig indsigt i dine bedste salgsmuligheder</p>
+            <p class="text-gray-600 mb-6 text-lg">Upload din icast.csv og få øjeblikkelig indsigt i dine bedste salgsmuligheder</p>
             <input type="file" id="fileInput" accept=".csv" class="hidden">
             <button onclick="document.getElementById('fileInput').click()" class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
                 📁 Vælg Din Salgsdata
@@ -525,43 +522,6 @@
                 </div>
             </div>
 
-            <!-- Advanced Filters Section -->
-            <div id="filters" class="bg-white rounded-lg shadow-sm border p-6 no-print">
-                <div class="flex items-center mb-4">
-                    <div class="w-8 h-8 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center mr-3">
-                        <span class="text-white text-lg">🎯</span>
-                    </div>
-                    <h2 class="text-xl font-semibold text-gray-900">Præcisions Filtrering</h2>
-                    <button id="resetFiltersBtn" class="ml-auto bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 text-white px-4 py-2 rounded-lg text-sm transition-all duration-200 shadow-md">🔄 Nulstil filtre</button>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">Lagerantal (min-max)</label>
-                        <div class="flex space-x-2">
-                            <input type="number" id="minLagerantal" placeholder="Min" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <input type="number" id="maxLagerantal" placeholder="Max" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">💰 Profit niveau</label>
-                        <div class="flex space-x-2">
-                            <input type="number" id="minFortjeneste" placeholder="Min kr" step="0.01" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <input type="number" id="maxFortjeneste" placeholder="Max kr" step="0.01" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-1">🏷️ Produkt type</label>
-                        <select id="productCategory" class="w-full px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                            <option value="">Alle kategorier</option>
-                            <option value="mad">Mad & Drikke</option>
-                            <option value="elektronik">Elektronik</option>
-                            <option value="toj">Tøj & Accessories</option>
-                            <option value="husholdning">Husholdning</option>
-                            <option value="andre">Andre</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
 
             <!-- Favorites Section -->
             <div id="favoritesSection" class="bg-white rounded-lg shadow-sm border p-6 hidden">
@@ -810,12 +770,6 @@
         const totalProfitEl = document.getElementById('totalProfit');
         const avgProfitEl = document.getElementById('avgProfit');
         const lossProductsEl = document.getElementById('lossProducts');
-        const resetFiltersBtn = document.getElementById('resetFiltersBtn');
-        const minLagerantal = document.getElementById('minLagerantal');
-        const maxLagerantal = document.getElementById('maxLagerantal');
-        const minFortjeneste = document.getElementById('minFortjeneste');
-        const maxFortjeneste = document.getElementById('maxFortjeneste');
-        const productCategory = document.getElementById('productCategory');
         const loadingOverlay = document.getElementById('loadingOverlay');
         const progressFill = document.getElementById('progressFill');
         const compareBtn = document.getElementById('compareBtn');
@@ -894,14 +848,6 @@
         exportLagerGuldBtn.addEventListener('click', () => exportToCSV('lagerGuld'));
         exportTabsBtn.addEventListener('click', () => exportToCSV('tabs'));
 
-        // Advanced filters functionality
-        const filterInputs = [minLagerantal, maxLagerantal, minFortjeneste, maxFortjeneste, productCategory];
-        filterInputs.forEach(input => {
-            input.addEventListener('input', applyFilters);
-            input.addEventListener('change', applyFilters);
-        });
-
-        resetFiltersBtn.addEventListener('click', resetFilters);
 
         // Print functionality
         printBtn.addEventListener('click', () => window.print());
@@ -1199,7 +1145,7 @@
 
             updateProgress(50, 'Analyserer produktkategorier...');
 
-            // Initialize filtered data
+            // Initialize filtered data (no longer used for filtering, but kept for compatibility)
             filteredSalesData = [...salesData];
 
             updateProgress(70, 'Genererer oversigter...');
@@ -1239,8 +1185,6 @@
             // Update statistics
             updateStatistics();
 
-            // Apply initial filters
-            applyFilters();
 
             // Update charts
             updateCharts();
@@ -1255,7 +1199,7 @@
 
         // Populate Cash Cows table (Top 10 profit)
         function populateCashCows() {
-            const top10 = filteredSalesData
+            const top10 = salesData
                 .sort((a, b) => b.reelFortjeneste - a.reelFortjeneste)
                 .slice(0, 10);
 
@@ -1265,7 +1209,7 @@
 
         // Populate Lager-Guld table (High inventory, good profit)
         function populateLagerGuld() {
-            const filtered = filteredSalesData
+            const filtered = salesData
                 .filter(item => item.lagerantal > 10 && item.reelFortjeneste > 50)
                 .sort((a, b) => b.lagerantal - a.lagerantal);
 
@@ -1275,7 +1219,7 @@
 
         // Populate Tabs-listen table (Negative profit)
         function populateTabsListen() {
-            const filtered = filteredSalesData
+            const filtered = salesData
                 .filter(item => item.reelFortjeneste < 0)
                 .sort((a, b) => a.reelFortjeneste - b.reelFortjeneste); // Most negative first
 
@@ -1285,10 +1229,10 @@
 
         // Update statistics overview
         function updateStatistics() {
-            const totalProducts = filteredSalesData.length;
-            const totalProfit = filteredSalesData.reduce((sum, item) => sum + item.reelFortjeneste, 0);
+            const totalProducts = salesData.length;
+            const totalProfit = salesData.reduce((sum, item) => sum + item.reelFortjeneste, 0);
             const avgProfit = totalProducts > 0 ? totalProfit / totalProducts : 0;
-            const lossProducts = filteredSalesData.filter(item => item.reelFortjeneste < 0).length;
+            const lossProducts = salesData.filter(item => item.reelFortjeneste < 0).length;
 
             totalProductsEl.textContent = totalProducts.toLocaleString('da-DK');
             totalProfitEl.textContent = formatCurrency(totalProfit);
@@ -1305,10 +1249,10 @@
         // Update profit distribution chart
         function updateProfitChart() {
             const profitRanges = {
-                'Tabsgivende (< 0 kr)': filteredSalesData.filter(item => item.reelFortjeneste < 0).length,
-                'Lav fortjeneste (0-50 kr)': filteredSalesData.filter(item => item.reelFortjeneste >= 0 && item.reelFortjeneste < 50).length,
-                'Middel fortjeneste (50-200 kr)': filteredSalesData.filter(item => item.reelFortjeneste >= 50 && item.reelFortjeneste < 200).length,
-                'Høj fortjeneste (200+ kr)': filteredSalesData.filter(item => item.reelFortjeneste >= 200).length
+                'Tabsgivende (< 0 kr)': salesData.filter(item => item.reelFortjeneste < 0).length,
+                'Lav fortjeneste (0-50 kr)': salesData.filter(item => item.reelFortjeneste >= 0 && item.reelFortjeneste < 50).length,
+                'Middel fortjeneste (50-200 kr)': salesData.filter(item => item.reelFortjeneste >= 50 && item.reelFortjeneste < 200).length,
+                'Høj fortjeneste (200+ kr)': salesData.filter(item => item.reelFortjeneste >= 200).length
             };
 
             if (profitChart) {
@@ -1354,10 +1298,10 @@
         // Update inventory status chart
         function updateInventoryChart() {
             const inventoryRanges = {
-                'Udsolgt (0 stk)': filteredSalesData.filter(item => item.lagerantal === 0).length,
-                'Lav lager (1-5 stk)': filteredSalesData.filter(item => item.lagerantal >= 1 && item.lagerantal <= 5).length,
-                'Middel lager (6-20 stk)': filteredSalesData.filter(item => item.lagerantal >= 6 && item.lagerantal <= 20).length,
-                'Høj lager (21+ stk)': filteredSalesData.filter(item => item.lagerantal >= 21).length
+                'Udsolgt (0 stk)': salesData.filter(item => item.lagerantal === 0).length,
+                'Lav lager (1-5 stk)': salesData.filter(item => item.lagerantal >= 1 && item.lagerantal <= 5).length,
+                'Middel lager (6-20 stk)': salesData.filter(item => item.lagerantal >= 6 && item.lagerantal <= 20).length,
+                'Høj lager (21+ stk)': salesData.filter(item => item.lagerantal >= 21).length
             };
 
             if (inventoryChart) {
@@ -1397,79 +1341,6 @@
             });
         }
 
-        // Apply advanced filters
-        function applyFilters() {
-            filteredSalesData = [...salesData];
-
-            // Filter by lagerantal
-            const minLager = parseInt(minLagerantal.value) || 0;
-            const maxLager = parseInt(maxLagerantal.value) || Infinity;
-            if (minLager > 0 || maxLager < Infinity) {
-                filteredSalesData = filteredSalesData.filter(item =>
-                    item.lagerantal >= minLager && item.lagerantal <= maxLager
-                );
-            }
-
-            // Filter by fortjeneste
-            const minProfit = parseFloat(minFortjeneste.value) || -Infinity;
-            const maxProfit = parseFloat(maxFortjeneste.value) || Infinity;
-            if (minProfit > -Infinity || maxProfit < Infinity) {
-                filteredSalesData = filteredSalesData.filter(item =>
-                    item.reelFortjeneste >= minProfit && item.reelFortjeneste <= maxProfit
-                );
-            }
-
-            // Filter by category
-            const category = productCategory.value;
-            if (category) {
-                const categoryKeywords = {
-                    'mad': ['mad', 'drikke', 'øl', 'vin', 'cola', 'kaffe', 'te', 'chokolade', 'slik', 'kage'],
-                    'elektronik': ['telefon', 'computer', 'tv', 'radio', 'kabel', 'lad', 'batteri', 'skærm'],
-                    'toj': ['bukser', 'skjorte', 'sko', 'hat', 'taske', 'tøj', 'jakke', 'trøje'],
-                    'husholdning': ['rens', 'vask', 'køkken', 'bad', 'toilet', 'støvsug', 'komfur'],
-                    'andre': []
-                };
-
-                const keywords = categoryKeywords[category] || [];
-                if (keywords.length > 0) {
-                    filteredSalesData = filteredSalesData.filter(item => {
-                        // Brug kategori-feltet hvis det er udfyldt (fra Sum varer)
-                        if (item.kategori) {
-                            return keywords.some(keyword =>
-                                item.kategori.toLowerCase().includes(keyword.toLowerCase())
-                            );
-                        }
-                        // Ellers brug varenavn som før
-                        return keywords.some(keyword =>
-                            item.varenavn.toLowerCase().includes(keyword.toLowerCase())
-                        );
-                    });
-                }
-            }
-
-            // Repopulate all tables with filtered data
-            populateCashCows();
-            populateLagerGuld();
-            populateTabsListen();
-            updateStatistics();
-            updateCharts();
-        }
-
-        // Reset all filters
-        function resetFilters() {
-            minLagerantal.value = '';
-            maxLagerantal.value = '';
-            minFortjeneste.value = '';
-            maxFortjeneste.value = '';
-            productCategory.value = '';
-
-            filteredSalesData = [...salesData];
-            populateCashCows();
-            populateLagerGuld();
-            populateTabsListen();
-            updateStatistics();
-            updateCharts();
-        }
 
         // Enter comparison mode
         function enterComparisonMode() {
@@ -1637,7 +1508,7 @@
         function saveToLocalStorage(data, fileName) {
             try {
                 localStorage.setItem(STORAGE_KEYS.SALES_DATA, JSON.stringify(data));
-                localStorage.setItem(STORAGE_KEYS.FILTERED_DATA, JSON.stringify(data));
+                localStorage.setItem(STORAGE_KEYS.FILTERED_DATA, JSON.stringify(data)); // Keep for compatibility
                 localStorage.setItem(STORAGE_KEYS.FILE_NAME, fileName || 'tele.csv');
                 localStorage.setItem(STORAGE_KEYS.LAST_UPDATED, new Date().toISOString());
 
@@ -1658,9 +1529,10 @@
 
                 if (savedData && savedFilteredData) {
                     salesData = JSON.parse(savedData);
-                    filteredSalesData = JSON.parse(savedFilteredData);
+                    filteredSalesData = JSON.parse(savedFilteredData); // Keep for compatibility
 
                     // Update UI to show loaded data
+                    filteredSalesData = [...salesData]; // Keep for compatibility
                     displayDashboard();
 
                     // Show loaded message
@@ -1966,7 +1838,7 @@
         // Clear data and reset UI
         function clearData() {
             salesData = [];
-            filteredSalesData = [];
+            filteredSalesData = []; // Keep for compatibility
             cashCowsData = [];
             lagerGuldData = [];
             tabsData = [];
@@ -1991,8 +1863,6 @@
             // Clear favorites
             clearAllFavorites();
 
-            // Reset filters
-            resetFilters();
         }
 
         // Initialize app - load from localStorage if available
